@@ -16,7 +16,8 @@ public enum Color {
 
     /** The side whose turn it is after this one moves. */
     public Color opposite() {
-        throw new UnsupportedOperationException("M0b: your turn");
+        // swaps current color to opposite color
+        return this == WHITE ? BLACK : WHITE;
     }
 
     /**
@@ -24,16 +25,18 @@ public enum Color {
      * White moves up the board (+1), black moves down (-1).
      */
     public int pawnDirection() {
-        throw new UnsupportedOperationException("M0b: your turn");
+        return this == WHITE ? 1 : -1;
     }
 
     /** The rank pawns of this color start on (0-based). */
     public int pawnStartRank() {
-        throw new UnsupportedOperationException("M0b: your turn");
+        // white pawns begin at rank1, black at rank6
+        return this == WHITE ? 1 : 6;
     }
 
     /** The rank a pawn of this color must reach to promote (0-based). */
     public int promotionRank() {
-        throw new UnsupportedOperationException("M0b: your turn");
+        // white pawns promote at rank7, black at rank0
+        return this == WHITE ? 7 : 0;
     }
 }
