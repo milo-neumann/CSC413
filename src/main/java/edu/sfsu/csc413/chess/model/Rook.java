@@ -1,5 +1,6 @@
 package edu.sfsu.csc413.chess.model;
 
+import java.lang.invoke.TypeDescriptor;
 import java.util.List;
 
 /**
@@ -18,6 +19,6 @@ public class Rook extends Piece {
 
     @Override
     public List<Move> pseudoLegalMoves(Board board, Position from) {
-        throw new UnsupportedOperationException("M2: implement Rook.pseudoLegalMoves");
+        return slidingMoves(board, from, DIRECTIONS);
     }
 }

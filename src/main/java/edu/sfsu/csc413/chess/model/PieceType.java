@@ -20,7 +20,7 @@ public enum PieceType {
         return symbol;
     }
 
-    static PieceType fromSymbol(char letter){
+    public static PieceType fromSymbol(char letter){
 
         // ensure letter is uppercase
         char upper = Character.toUpperCase(letter);
