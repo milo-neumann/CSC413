@@ -75,4 +75,53 @@ public class Board {
         return fen.toString();
     }
 
+    /*
+        apply checks nothing. It trusts the Move it is given, because deciding whether a move is allowed is Game's job,
+        not storage's. undo needs no bookkeeping because the Move carries the piece it captured; that is why Move has a
+        captured field.
+
+        One wrinkle: if the move is a promotion, the piece set down on to is a new piece of promotesTo()'s type
+        and the mover's color, not the pawn. You need to build a piece from a PieceType. The one switch on PieceType
+        in the project is PieceFactory.create, and calling it from Board makes model depend on factory, an arrow
+        pointing the wrong way. A second, private switch in Board duplicates four lines. Either is accepted this
+        milestone; say in a comment which you chose and what it costs. No M3 test promotes, so this is graded by
+        reading.
+    */
+
+    public void apply(Move move) {
+        place(move.from(), null);
+
+        if (move.isPromotion()) {
+            Piece promotedPiece;
+
+            switch (move.promotesTo()) {
+                case QUEEN:
+                    promotedPiece = new Queen(move.moved().color());
+                    break;
+                case ROOK:
+                    promotedPiece = new Rook(move.moved().color());
+                    break;
+                case BISHOP:
+                    promotedPiece = new Bishop(move.moved().color());
+                    break;
+                case KNIGHT:
+                    promotedPiece = new Knight(move.moved().color());
+                    break;
+                default:
+                    throw new IllegalArgumentException(
+                            "Invalid promotion type: " + move.promotesTo()
+                    );
+            }
+
+            place(move.to(), promotedPiece);
+        } else {
+            place(move.to(), move.moved());
+        }
+    }
+
+    public void undo(Move move) {
+        place(move.from(), move.moved());
+        place(move.to(), move.captured());
+    }
+
 } 
