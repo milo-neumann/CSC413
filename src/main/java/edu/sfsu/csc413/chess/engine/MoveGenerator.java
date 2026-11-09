@@ -41,7 +41,22 @@ public final class MoveGenerator {
      * when it tightens.
      */
     public static List<Move> legalMoves(Board board, Color color) {
-        return pseudoLegalMoves(board, color);
+        List<Move> legal = new ArrayList<>();
+
+        // M5: added checking for check before adding to legal moves
+        for (Move move : pseudoLegalMoves(board, color)) {
+            // try move
+            board.apply(move);
+            // test for check
+            boolean inCheck = isInCheck(board, color);
+            board.undo(move);
+
+            if (!inCheck) {
+                legal.add(move);
+            }
+        }
+
+        return legal;
     }
 
     /**
@@ -65,5 +80,28 @@ public final class MoveGenerator {
         }
 
         return moves;
+    }
+
+    // determines if a piece is in danger within opponents next move
+    public static boolean isAttacked(Board board, Position target, Color attacker) {
+
+        for (Position from : board.positionsOf(attacker)) {
+            if (board.pieceAt(from).attacks(board, from, target)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // finds king, determines if king isAttacked (in check)
+    public static boolean isInCheck(Board board, Color color) {
+        Position king = board.kingPosition(color);
+
+        if (king == null) {
+            return false;
+        }
+
+        return isAttacked(board, king, color.opposite());
     }
 }

@@ -39,6 +39,19 @@ public class Board {
         return positions;
     }
 
+    // checks positions of all color for king
+    public Position kingPosition(Color color) {
+
+        for (Position pos : positionsOf(color)) {
+            Piece piece = pieceAt(pos);
+            if (piece.type() == PieceType.KING) {
+                return pos;
+            }
+        }
+
+        return null;
+    }
+
     public String toString() {
         StringBuilder fen = new StringBuilder();
 
