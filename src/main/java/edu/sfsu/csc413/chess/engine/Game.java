@@ -3,6 +3,7 @@ package edu.sfsu.csc413.chess.engine;
 import edu.sfsu.csc413.chess.factory.BoardFactory;
 import edu.sfsu.csc413.chess.model.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,14 +70,7 @@ public class Game {
      * or its callers.
      */
     public List<Move> legalMoves() {
-        List<Move> moves = new ArrayList<>();
-
-        for (Position from : board.positionsOf(sideToMove)) {
-            Piece piece = board.pieceAt(from);
-            moves.addAll(piece.pseudoLegalMoves(board, from));
-        }
-
-        return moves;
+        return MoveGenerator.legalMoves(board, sideToMove);
     }
 
     /**
