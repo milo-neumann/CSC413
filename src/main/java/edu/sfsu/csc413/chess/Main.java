@@ -1,35 +1,27 @@
 package edu.sfsu.csc413.chess;
 
 import edu.sfsu.csc413.chess.engine.Game;
-import edu.sfsu.csc413.chess.factory.BoardFactory;
-import edu.sfsu.csc413.chess.model.*;
-import edu.sfsu.csc413.chess.view.PieceGlyphs;
-import edu.sfsu.csc413.chess.view.TextBoardRenderer;
+import edu.sfsu.csc413.chess.view.BoardView;
+import edu.sfsu.csc413.chess.view.ConsoleView;
+import edu.sfsu.csc413.chess.view.EmojiView;
+import edu.sfsu.csc413.chess.view.GameController;
 
-import java.util.List;
-
-/**
- * Entry point.
- *
- * <p>At M0 this does nothing but prove the toolchain works. It grows into the
- * real launcher as the engine appears underneath it.
- */
 public final class Main {
 
     public static void main(String[] args) {
-        System.out.println("CSC 413 Chess — environment OK.");
 
         Game game = new Game();
-        TextBoardRenderer renderer = new TextBoardRenderer(PieceGlyphs.LETTERS);
-        System.out.println(renderer.render(game.board()));
 
-        for (String notation : List.of("e2e4", "e7e5")) {
-            game.play(game.findLegalMove(notation).orElseThrow());
+        BoardView view;
+
+        if (args.length > 0 && args[0].equalsIgnoreCase("emoji")) {
+            view = new EmojiView();
+        } else {
+            view = new ConsoleView();
         }
-        System.out.println(renderer.render(game.board()));
 
-        game.undoLastMove();
-        System.out.println(renderer.render(game.board()));
+        GameController controller = new GameController(game, view);
+        controller.start();
     }
 
     private Main() {

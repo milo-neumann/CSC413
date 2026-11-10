@@ -104,4 +104,21 @@ public final class MoveGenerator {
 
         return isAttacked(board, king, color.opposite());
     }
+
+    public static GameStatus status(Board board, Color sideToMove) {
+        boolean inCheck = isInCheck(board, sideToMove);
+        boolean hasMoves = !legalMoves(board, sideToMove).isEmpty();
+
+        if (!hasMoves) {
+            if (inCheck) {
+                return GameStatus.CHECKMATE;
+            }
+            return GameStatus.STALEMATE;
+        }
+        if (inCheck) {
+            return GameStatus.CHECK;
+        }
+
+        return GameStatus.IN_PROGRESS;
+    }
 }

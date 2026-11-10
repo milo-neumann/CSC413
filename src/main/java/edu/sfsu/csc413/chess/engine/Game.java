@@ -127,4 +127,12 @@ public class Game {
 
         return Optional.of(move);
     }
+
+    public GameStatus status() {
+        return MoveGenerator.status(board, sideToMove);
+    }
+
+    public boolean isGameOver() {
+        return status().isGameOver();
+    }
 }
