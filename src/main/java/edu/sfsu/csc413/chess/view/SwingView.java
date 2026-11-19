@@ -269,8 +269,8 @@ public class SwingView implements BoardView {
             if (selected == null) {
                 return;
             }
-
-            g.setColor(new Color(35, 170, 80, 220));
+            // M7: by hand edit - changing highlight color from ugly green to purple
+            g.setColor(new Color(150, 80, 200, 220));
             for (Move move : game.legalMoves()) {
                 if (move.from().equals(selected)) {
                     int x = move.to().file() * squareSize + squareSize / 2;
