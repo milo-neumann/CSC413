@@ -18,9 +18,10 @@ import java.util.Scanner;
 public class ColoredTerminalView implements BoardView {
 
     private static final String RESET = "\u001B[0m";
-    private static final String LIGHT_SQUARE = "\u001B[48;5;187m";
-    private static final String DARK_SQUARE = "\u001B[48;5;101m";
-    private static final String WHITE_PIECE = "\u001B[38;5;255m";
+    // M7: My 'hand' edit - changing colors to be more visible
+    private static final String LIGHT_SQUARE = "\u001B[48;5;223m";
+    private static final String DARK_SQUARE = "\u001B[48;5;94m";
+    private static final String WHITE_PIECE = "\u001B[38;5;231m";
     private static final String BLACK_PIECE = "\u001B[38;5;16m";
     private static final String EMPTY_SQUARE = "  ";
 
@@ -65,7 +66,8 @@ public class ColoredTerminalView implements BoardView {
                         : piece.color() == Color.WHITE ? WHITE_PIECE : BLACK_PIECE;
                 String glyph = piece == null
                         ? EMPTY_SQUARE
-                        : " " + PieceGlyphs.FIGURES.glyphFor(piece);
+                        // M7: by hand edit - fixing purple black pawns bug
+                        : " " + PieceGlyphs.FIGURES.glyphFor(piece) + "\uFE0E";
                 out.print(background + foreground + glyph + " " + RESET);
             }
             out.println();
