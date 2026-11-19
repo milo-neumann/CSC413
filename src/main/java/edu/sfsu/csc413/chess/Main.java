@@ -2,6 +2,7 @@ package edu.sfsu.csc413.chess;
 
 import edu.sfsu.csc413.chess.engine.Game;
 import edu.sfsu.csc413.chess.view.BoardView;
+import edu.sfsu.csc413.chess.view.ColoredTerminalView;
 import edu.sfsu.csc413.chess.view.ConsoleView;
 import edu.sfsu.csc413.chess.view.EmojiView;
 import edu.sfsu.csc413.chess.view.GameController;
@@ -17,6 +18,8 @@ public final class Main {
 
         if (args.length > 0 && args[0].equalsIgnoreCase("swing")) {
             view = new SwingView();
+        } else if (args.length > 0 && args[0].equalsIgnoreCase("colored")) {
+            view = new ColoredTerminalView();
         } else if (args.length > 0 && args[0].equalsIgnoreCase("emoji")) {
             view = new EmojiView();
         } else {
