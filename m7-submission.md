@@ -143,7 +143,7 @@ The colored terminal initially displayed chess pieces as question marks. Running
 I also investigated a pawn-color rendering issue. The black pawns appeared purple despite the ANSI foreground color. I tested a Unicode text-presentation selector, but the issue persisted. I also tried changing the 
 
 ## Manual Change
-Commit: "M7: manual edit - change possible move highlight color for readability"
+Commit: "M7 by hand: adjust terminal colors for readability"
 
 I manually changed the color that `drawHighlights` function sets the highlighted dot of possible moves to in `SwingView.java`. It was an ugly green color that was hard to see on the beige board. I changed it manually to purple after locating how codex implemented the dot highlight functionality.
 
